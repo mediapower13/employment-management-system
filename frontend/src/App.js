@@ -6,18 +6,28 @@ import Employees from './pages/Employees';
 import Departments from './pages/Departments';
 import Payroll from './pages/Payroll';
 import Blockchain from './pages/Blockchain';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/employees" element={<Employees />} />
-          <Route path="/departments" element={<Departments />} />
-          <Route path="/payroll" element={<Payroll />} />
-          <Route path="/blockchain" element={<Blockchain />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/*" element={
+            <>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/employees" element={<Employees />} />
+                <Route path="/departments" element={<Departments />} />
+                <Route path="/payroll" element={<Payroll />} />
+                <Route path="/blockchain" element={<Blockchain />} />
+              </Routes>
+            </>
+          } />
         </Routes>
       </div>
     </Router>
