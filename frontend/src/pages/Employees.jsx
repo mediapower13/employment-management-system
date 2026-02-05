@@ -126,7 +126,6 @@ const Employees = () => {
   );
 };
 
-export default Employees;
             onCancel={resetForm}
           />
         </Modal>
@@ -136,8 +135,6 @@ export default Employees;
 };
 
 export default Employees;
-
-  return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
