@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useEmployee } from '../context/EmployeeContext';
 import { getAllEmployees, createEmployee, updateEmployee, deleteEmployee } from '../services/employeeService';
 import EmployeeTable from '../components/EmployeeTable';
@@ -18,11 +18,7 @@ const Employees = () => {
     dateOfJoining: '',
   });
 
-  useEffect(() => {
-    fetchEmployees();
-  }, []);
-
-  const fetchEmployees = async () => {
+  const fetchEmployees = useCallback(async () => {
     try {
       setLoading(true);
       const data = await getAllEmployees();
@@ -32,7 +28,11 @@ const Employees = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setEmployees]);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, [fetchEmployees]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
