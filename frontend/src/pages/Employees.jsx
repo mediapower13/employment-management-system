@@ -126,12 +126,4 @@ const Employees = () => {
   );
 };
 
-            onCancel={resetForm}
-          />
-        </Modal>
-      </div>
-    </div>
-  );
-};
-
 export default Employees;
