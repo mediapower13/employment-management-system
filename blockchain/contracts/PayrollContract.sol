@@ -108,6 +108,7 @@ contract PayrollContract {
     
     function withdrawFunds(uint256 _amount) public onlyOwner {
         require(_amount <= address(this).balance, "Insufficient balance");
-        payable(owner).transfer(_amount);
+        (bool success, ) = payable(owner).call{value: _amount}("");
+        require(success, "Withdrawal failed");
     }
 }
