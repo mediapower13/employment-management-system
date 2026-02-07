@@ -21,6 +21,7 @@ const LeaveManagement = () => {
   useEffect(() => {
     fetchEmployees();
     fetchLeaveRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchEmployees = async () => {
