@@ -8,6 +8,8 @@ import Payroll from './pages/Payroll';
 import Blockchain from './pages/Blockchain';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Attendance from './pages/Attendance';
+import LeaveManagement from './pages/LeaveManagement';
 import { AuthProvider } from './context/AuthContext';
 import { EmployeeProvider } from './context/EmployeeContext';
 import { DepartmentProvider } from './context/DepartmentContext';
@@ -31,6 +33,8 @@ function App() {
                       <Route path="/departments" element={<Departments />} />
                       <Route path="/payroll" element={<Payroll />} />
                       <Route path="/blockchain" element={<Blockchain />} />
+                      <Route path="/attendance" element={<Attendance />} />
+                      <Route path="/leave" element={<LeaveManagement />} />
                     </Routes>
                   </>
                 } />
