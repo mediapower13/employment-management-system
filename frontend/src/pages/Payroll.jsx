@@ -26,6 +26,7 @@ const Payroll = () => {
   useEffect(() => {
     fetchEmployees();
     fetchPayrolls();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchEmployees = async () => {

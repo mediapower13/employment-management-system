@@ -8,7 +8,6 @@ import { getAllPayrolls } from '../services/payrollService';
 const Dashboard = () => {
   const { employees, setEmployees } = useEmployee();
   const { departments, setDepartments } = useDepartment();
-  const [payrolls, setPayrolls] = useState([]);
   const [stats, setStats] = useState({
     totalEmployees: 0,
     totalDepartments: 0,
@@ -18,6 +17,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchDashboardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchDashboardData = async () => {
@@ -30,7 +30,6 @@ const Dashboard = () => {
 
       setEmployees(employeesData);
       setDepartments(departmentsData);
-      setPayrolls(payrollsData);
 
       setStats({
         totalEmployees: employeesData.length,
