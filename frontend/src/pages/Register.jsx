@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 
 const Register = () => {
@@ -11,9 +12,9 @@ const Register = () => {
     firstName: '',
     lastName: '',
   });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
 
   const handleChange = (e) => {
     setFormData({
@@ -24,10 +25,9 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      showError('Passwords do not match');
       return;
     }
 
@@ -36,9 +36,10 @@ const Register = () => {
     try {
       const { confirmPassword, ...registerData } = formData;
       await api.post('/auth/register', registerData);
-      navigate('/login');
+      showSuccess('Registration successful! Please login.');
+      setTimeout(() => navigate('/login'), 1000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      showError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -51,12 +52,6 @@ const Register = () => {
           <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
           <p className="text-gray-600 mt-2">Join our employment system</p>
         </div>
-
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
