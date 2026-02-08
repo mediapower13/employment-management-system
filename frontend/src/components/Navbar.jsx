@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <nav className="bg-blue-600 shadow-lg">
@@ -27,9 +35,24 @@ const Navbar = () => {
             <Link to="/payroll" className="text-white hover:bg-blue-700 px-3 py-2 rounded-md">
               Payroll
             </Link>
+            <Link to="/attendance" className="text-white hover:bg-blue-700 px-3 py-2 rounded-md">
+              Attendance
+            </Link>
+            <Link to="/leave" className="text-white hover:bg-blue-700 px-3 py-2 rounded-md">
+              Leave
+            </Link>
             <Link to="/blockchain" className="text-white hover:bg-blue-700 px-3 py-2 rounded-md">
               Blockchain
             </Link>
+            <div className="flex items-center space-x-3 ml-4 border-l border-blue-500 pl-4">
+              <span className="text-white text-sm">Welcome, {user?.username || 'User'}</span>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm"
+              >
+                Logout
+              </button>
+            </div>
           </div>
 
           <div className="md:hidden flex items-center">
@@ -64,9 +87,24 @@ const Navbar = () => {
             <Link to="/payroll" className="text-white hover:bg-blue-700 block px-3 py-2 rounded-md">
               Payroll
             </Link>
+            <Link to="/attendance" className="text-white hover:bg-blue-700 block px-3 py-2 rounded-md">
+              Attendance
+            </Link>
+            <Link to="/leave" className="text-white hover:bg-blue-700 block px-3 py-2 rounded-md">
+              Leave
+            </Link>
             <Link to="/blockchain" className="text-white hover:bg-blue-700 block px-3 py-2 rounded-md">
               Blockchain
             </Link>
+            <div className="border-t border-blue-500 mt-2 pt-2">
+              <div className="text-white px-3 py-2 text-sm">Welcome, {user?.username || 'User'}</div>
+              <button
+                onClick={handleLogout}
+                className="w-full text-left bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       )}
