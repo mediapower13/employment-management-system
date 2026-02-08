@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Attendance from './pages/Attendance';
 import LeaveManagement from './pages/LeaveManagement';
+import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { EmployeeProvider } from './context/EmployeeContext';
 import { DepartmentProvider } from './context/DepartmentContext';
@@ -25,7 +26,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/*" element={
-                  <>
+                  <ProtectedRoute>
                     <Navbar />
                     <Routes>
                       <Route path="/" element={<Dashboard />} />
@@ -36,7 +37,7 @@ function App() {
                       <Route path="/attendance" element={<Attendance />} />
                       <Route path="/leave" element={<LeaveManagement />} />
                     </Routes>
-                  </>
+                  </ProtectedRoute>
                 } />
               </Routes>
             </div>
