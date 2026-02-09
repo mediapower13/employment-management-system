@@ -41,11 +41,45 @@ A comprehensive employment management system built with modern technologies incl
 
 ## Getting Started
 
+### Prerequisites
+
+Before running the application, ensure you have the following installed:
+
+- **Java 17 or higher** - [Download here](https://www.oracle.com/java/technologies/downloads/)
+- **Maven 3.8+** - [Download here](https://maven.apache.org/download.cgi)
+- **Node.js 18+** - [Download here](https://nodejs.org/)
+- **PostgreSQL or MySQL** - [PostgreSQL](https://www.postgresql.org/download/) or [MySQL](https://dev.mysql.com/downloads/)
+- **MetaMask** - [Browser extension](https://metamask.io/) for blockchain features
+
+### Database Setup
+
+1. Create a new database:
+```sql
+CREATE DATABASE employment_db;
+```
+
+2. Update `backend/src/main/resources/application.properties`:
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/employment_db
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+```
+
 ### Backend Setup
 
+1. Navigate to backend directory:
 ```bash
 cd backend
+```
+
+2. Install dependencies and build:
+```bash
 mvn clean install
+```
+
+3. Run the Spring Boot application:
+```bash
 mvn spring-boot:run
 ```
 
@@ -53,9 +87,23 @@ Backend runs on `http://localhost:8080`
 
 ### Frontend Setup
 
+1. Navigate to frontend directory:
 ```bash
 cd frontend
+```
+
+2. Install dependencies:
+```bash
 npm install
+```
+
+3. Create `.env` file (copy from `.env.example`):
+```bash
+cp .env.example .env
+```
+
+4. Start the React application:
+```bash
 npm start
 ```
 
@@ -63,12 +111,67 @@ Frontend runs on `http://localhost:3000`
 
 ### Blockchain Setup
 
+1. Navigate to blockchain directory:
 ```bash
 cd blockchain
+```
+
+2. Install dependencies:
+```bash
 npm install
+```
+
+3. Compile smart contracts:
+```bash
 npx hardhat compile
+```
+
+4. Deploy to Sepolia testnet (requires funded wallet):
+```bash
 npx hardhat run scripts/deploy.js --network sepolia
 ```
+
+5. Update contract addresses in `frontend/.env`
+
+## Running the Full Application
+
+### Option 1: Run Everything Manually
+
+1. **Start Backend** (Terminal 1):
+```bash
+cd backend && mvn spring-boot:run
+```
+
+2. **Start Frontend** (Terminal 2):
+```bash
+cd frontend && npm start
+```
+
+3. **Access Application**:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8080
+   - API Documentation: http://localhost:8080/swagger-ui.html
+
+### Option 2: Quick Start (if Java not available)
+
+If you don't have Java/Maven installed, you can still explore the frontend:
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+**Note**: Backend features will not work without the Spring Boot server running.
+
+## Default Login Credentials
+
+After first run, you can register a new account or use default admin credentials:
+
+- Username: `admin`
+- Password: `admin123`
+
+(These need to be created via the registration page first)
 
 ## API Endpoints
 
