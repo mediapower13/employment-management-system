@@ -9,7 +9,7 @@ const Blockchain = () => {
   const [walletAddress, setWalletAddress] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [transactions, setTransactions] = useState([]);
+  const [transactions] = useState([]);
 
   useEffect(() => {
     checkWalletConnection();
