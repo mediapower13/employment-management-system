@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 
@@ -10,6 +11,7 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
   const { showSuccess, showError } = useToast();
 
   const handleChange = (e) => {
@@ -25,9 +27,11 @@ const Login = () => {
 
     try {
       const response = await api.post('/auth/login', formData);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('username', response.data.username);
-      localStorage.setItem('role', response.data.role);
+      login({
+        token: response.data.token,
+        username: response.data.username,
+        role: response.data.role
+      });
       showSuccess('Login successful! Welcome back.');
       setTimeout(() => navigate('/'), 500);
     } catch (err) {
