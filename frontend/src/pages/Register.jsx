@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
+import { validateEmail, validatePassword, validateRequired } from '../utils/validation';
 import api from '../services/api';
 
 const Register = () => {
@@ -25,6 +26,37 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation
+    if (!validateRequired(formData.firstName)) {
+      showError('First name is required');
+      return;
+    }
+
+    if (!validateRequired(formData.lastName)) {
+      showError('Last name is required');
+      return;
+    }
+
+    if (!validateRequired(formData.username)) {
+      showError('Username is required');
+      return;
+    }
+
+    if (formData.username.length < 3) {
+      showError('Username must be at least 3 characters');
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      showError('Please enter a valid email address');
+      return;
+    }
+
+    if (!validatePassword(formData.password)) {
+      showError('Password must be at least 6 characters');
+      return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
       showError('Passwords do not match');
