@@ -4,10 +4,12 @@ import { useDepartment } from '../context/DepartmentContext';
 import { getAllEmployees } from '../services/employeeService';
 import { getAllDepartments } from '../services/departmentService';
 import { getAllPayrolls } from '../services/payrollService';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Dashboard = () => {
   const { employees, setEmployees } = useEmployee();
   const { departments, setDepartments } = useDepartment();
+  const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalEmployees: 0,
     totalDepartments: 0,
@@ -21,6 +23,7 @@ const Dashboard = () => {
   }, []);
 
   const fetchDashboardData = async () => {
+    setLoading(true);
     try {
       const [employeesData, departmentsData, payrollsData] = await Promise.all([
         getAllEmployees(),
@@ -39,8 +42,14 @@ const Dashboard = () => {
       });
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner size="large" message="Loading dashboard..." />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
