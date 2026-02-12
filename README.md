@@ -1,4 +1,4 @@
-# Employment Management System
+<!-- # Employment Management System
 
 A comprehensive employment management system built with modern technologies including Java Spring Boot backend, React frontend with Tailwind CSS, and Web3 blockchain integration for secure and transparent employee management.
 
@@ -228,4 +228,4 @@ mvn test
 
 ## License
 
-MIT
+MIT -->
